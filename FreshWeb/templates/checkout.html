@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <!-- Breadcrumb -->
+    <section class="section-breadcrumb">
+        <div class="cr-breadcrumb-image">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="cr-breadcrumb-title">
+                            <h2>Checkout</h2>
+                            <span> <a href="/freshWeb/indexWeb">Home</a> - Checkout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout section -->
+    <section class="cr-checkout-section padding-tb-100">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar Area Start -->
+                <div class="cr-checkout-rightside col-lg-4 col-md-12">
+                    <div class="cr-sidebar-wrap">
+                        <!-- Sidebar Summary Block -->
+                        <div class="cr-sidebar-block">
+                            <div class="cr-sb-title">
+                                <h3 class="cr-sidebar-title">Summary</h3>
+                            </div>
+                            <div class="cr-sb-block-content">
+                                <div class="cr-checkout-summary">
+                                    <div>
+                                        <span class="text-left">Sub-Total</span>
+                                        <span class="text-right" id="subTotal">Rs {{total}}</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-left">Delivery Charges</span>
+                                        <span class="text-right" id="deliveryCharges">Rs 0.00</span>
+                                    </div>
+                                    <div class="cr-checkout-summary-total">
+                                        <span class="text-left">Total Amount</span>
+                                        <span class="text-right" id="totalAmount">Rs 0.00</span>
+                                    </div>
+                                </div>
+                                <div class="cr-checkout-pro">
+                                    {% for var in checkouts%}
+                                        {% for vars in products%}
+                                            {%if var.productName == var.productName %}
+                                                <div class="col-sm-12 mb-6">
+                                                    <div class="cr-product-inner">
+                                                        <div class="cr-pro-image-outer">
+                                                            <div class="cr-pro-image">
+                                                                <a href="../product/{{ var.id }}" class="image">
+                                                                    <img class="main-image" src="../../media/{{vars.productImg}}"
+                                                                        alt="Product">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="cr-pro-content cr-product-details">
+                                                            <h5 class="cr-pro-title"><a href="../product/{{ var.id }}">{{var.productName}}</a></h5>
+                                                            <div class="cr-pro-rating">
+                                                                <i class="ri-star-fill"></i>
+                                                                <i class="ri-star-fill"></i>
+                                                                <i class="ri-star-fill"></i>
+                                                                <i class="ri-star-fill"></i>
+                                                                <i class="ri-star-line"></i>
+                                                            </div>
+                                                            <p class="cr-price"><span class="new-price">Rs {{var.productValue}}</span> <span
+                                                                    class="old-price">$123.25</span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {%endif%}
+                                        {%endfor%}
+                                    {%endfor%}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Sidebar Summary Block -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Checkout section End -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        // Get the sub-total element and its value
+        const subTotalElement = document.getElementById("subTotal");
+        let subTotal = parseFloat(subTotalElement.textContent.replace("Rs ", ""));
+
+        // Calculate delivery charges (0.5% of the sub-total)
+        let deliveryCharges = subTotal * 0.005;
+
+        // Get the total amount element
+        const totalAmountElement = document.getElementById("totalAmount");
+
+        // Calculate total amount
+        let totalAmount = subTotal + deliveryCharges;
+
+        // Update the delivery charges and total amount elements
+        document.getElementById("deliveryCharges").textContent = `Rs ${deliveryCharges.toFixed(2)}`;
+        totalAmountElement.textContent = `Rs ${totalAmount.toFixed(2)}`;
+    });
+
+    </script>
+{%endblock%}

@@ -1,0 +1,91 @@
+##### HTML TEMPLATE #######
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Contact Form Submission</title>
+</head>
+<body>
+    <h2>New Contact Form Submission</h2>
+    <p>You have received a new message from {{ first_name }} {{ last_name }}.</p>
+    <p><strong>Details:</strong></p>
+    <ul>
+        <li><strong>First Name:</strong> {{ first_name }}</li>
+        <li><strong>Last Name:</strong> {{ last_name }}</li>
+        <li><strong>Email:</strong> {{ email }}</li>
+        <li><strong>Contact Number:</strong> {{ contact }}</li>
+        <li><strong>Message:</strong> {{ message }}</li>
+    </ul>
+    <p>Best regards,<br>The Techno IT Hub System</p>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Contact Form Submission</title>
+</head>
+<body>
+    <h2>New Contact Form Submission</h2>
+    <p>You have received a new message from {{ first_name }} {{ last_name }}.</p>
+    <p><strong>Details:</strong></p>
+    <ul>
+        <li><strong>First Name:</strong> {{ first_name }}</li>
+        <li><strong>Last Name:</strong> {{ last_name }}</li>
+        <li><strong>Email:</strong> {{ email }}</li>
+        <li><strong>Contact Number:</strong> {{ contact }}</li>
+        <li><strong>Message:</strong> {{ message }}</li>
+    </ul>
+    <p>Best regards,<br>The Techno IT Hub System</p>
+</body>
+</html>
+
+#################  View.py #################
+def contactform(request):
+    if request.method == 'POST':
+        data = request.POST
+        fname = data.get('first_name')
+        lname = data.get('last_name')
+        Email = data.get('email')
+        Phno = data.get('contact')
+        Message = data.get('message')
+        print(fname, lname, Email, Phno, Message)
+
+        # Save the contact details in the database
+        Contact.objects.create(
+            first_name=fname,
+            last_name=lname,
+            email=Email,
+            contact=Phno,
+            message=Message
+        )
+
+        # Prepare the context for the email template
+        context = {
+            'first_name': fname,
+            'last_name': lname,
+            'email': Email,
+            'contact': Phno,
+            'message': Message
+        }
+
+        # Render the HTML email content
+        html_message = render_to_string('email_template.html', context)
+
+        # Send email to the user
+        subject = 'Thank you for joining us'
+        from_email = 'info@technoithub.com'
+        recipient_list = [Email]
+        send_mail(subject, '', from_email, recipient_list, html_message=html_message)
+
+        # Send email to the admin
+        admin_subject = 'New Contact Form Submission'
+        admin_message = f'User {fname} {lname} has contacted you.'
+        admin_html_message = render_to_string('admin_email_template.html', context)
+        admin_recipient_list = ['info@technoithub.com']
+        send_mail(admin_subject, admin_message, from_email, admin_recipient_list, html_message=admin_html_message)
+
+    return render(request, 'contact-us.html')

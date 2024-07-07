@@ -1,0 +1,51 @@
+# def cartShows(request, id=None, email=None):
+#     if id is not None and email is not None:
+#         try:
+#             product = get_object_or_404(Products, id=id)
+#             cart_item, created = NewCart.objects.get_or_create(productId=id, username=email)
+#             if not created:
+#                 cart_item.productQuantity = (cart_item.productQuantity or 0) + 1
+#                 cart_item.save()
+#             else:
+#                 NewCart.objects.create(
+#                     productId=product.id,
+#                     productName=product.name,
+#                     productImg=product.photoM,
+#                     productValue=product.price,
+#                     productQuantity=1,
+#                     username=email
+#                 )
+#         except Products.DoesNotExist:
+#             raise Http404("Product does not exist")
+#         return HttpResponseRedirect('/freshWeb/cart/')
+#     elif id is not None and email is None:
+#         return redirect('/freshWeb/login/')
+#     elif request.method == 'POST':
+#         all_products = request.POST.getlist('product_name')
+#         all_prices = request.POST.getlist('product_price')
+#         all_quantities = request.POST.getlist('quantity')
+#         email = request.POST.get('email')
+
+#         for product_name, product_price, quantity in zip(all_products, all_prices, all_quantities):
+#             quantity = int(quantity) if quantity else 1
+#             product_price = float(product_price) if product_price else 0.0
+#             subtotal = product_price * quantity
+#             Checkouts.objects.create(
+#                 productName=product_name,
+#                 productValue=product_price,
+#                 quantity=quantity,
+#                 subtotal=subtotal,
+#                 username=email
+#             )
+#         checkout_url = reverse('checkout', kwargs={'email': email})
+#         return HttpResponseRedirect(checkout_url)
+#     else:
+#         all_products = NewCart.objects.all()
+#         categories = Category.objects.all()
+#         return render(request, 'cart.html', {'all_product': all_products, 'categories': categories})
+
+# <!-- <button type="submit" class="minus" onclick="myform()" ><input type="hidden" name="action" value="decrease">-</button>
+#                                                             <button type="submit" class="plus" onclick="myform()" ><input type="hidden" name="action" value="increase">+</button> -->
+#                                                             <!-- <button type="button" >-</button>
+#                                                                 <input type="text" name="quantity" value="{{ product.productQuantity }}" minlength="1" maxlength="20" class="quantity">
+#                                                                 <button type="button" class="plus">+</button> -->

@@ -1,0 +1,212 @@
+{% extends 'bases.html' %}
+{% block content %}
+<!-- main content -->
+<div class="cr-main-content">
+    <div class="container-fluid">
+        <!-- Page title & breadcrumb -->
+        <div class="cr-page-title cr-page-title-2">
+            <div class="cr-breadcrumb">
+                <h5>Update Product</h5>
+                <ul>
+                    <li><a href="../freshAdmin/indexAdmin">Fresh Garden</a></li>
+                    <li>Update Product</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="col-md-12">
+                    <div class="cr-card card-default">
+                        <div class="cr-card-content">
+                            <div class="row cr-product-uploads">
+                                <div class="col-lg-4 mb-991">
+                                    <div class="cr-vendor-img-upload">
+                                        <div class="cr-vendor-main-img">
+                                            <div class="avatar-upload">
+                                                <div class="avatar-edit">
+                                                    {% if proupdate.photoM != proupdate.photoM  %}
+                                                    <input type='file' id="product_main" class="cr-image-upload"
+                                                        accept=".png, .jpg, .jpeg" name="photoM"
+                                                        value="../media/{{proupdate.photoM}}">
+                                                    {% else %}
+                                                    <input type='file' id="product_main" class="cr-image-upload"
+                                                        accept=".png, .jpg, .jpeg" name="photoM"
+                                                        value="{{proupdate.photoM}}">
+                                                    {% endif %}
+                                                    <label><i class="ri-pencil-line"></i></label>
+                                                </div>
+                                                <div class="avatar-preview cr-preview">
+                                                    <div class="imagePreview cr-div-preview">
+                                                        {% if proupdate.photoM != proupdate.photoM  %}
+                                                            <img class="cr-image-preview" src="/static/files/assets/img/product/preview.jpg" alt="edit">
+                                                        {% else %}
+                                                            <img class="cr-image-preview" src="../media/{{ proupdate.photoM }}" alt="edit">
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="thumb-upload-set colo-md-12">
+                                                <div class="thumb-upload">
+                                                    <div class="thumb-edit">
+                                                        <input type='file' id="thumbUpload01" class="cr-image-upload"
+                                                            name="photo1" accept=".png, .jpg, .jpeg"
+                                                            value="{{proupdate.photo1}}">
+                                                        <label><i class="ri-pencil-line"></i></label>
+                                                    </div>
+                                                    <div class="thumb-preview cr-preview">
+                                                        <div class="image-thumb-preview">
+                                                            <img class="image-thumb-preview cr-image-preview"
+                                                                src="../media/{{proupdate.photo1}}" alt="edit">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="thumb-upload">
+                                                    <div class="thumb-edit">
+                                                        <input type='file' id="thumbUpload02" name="photo2"
+                                                            class="cr-image-upload" accept=".png, .jpg, .jpeg"
+                                                            value="{{proupdate.photo2}}">
+                                                        <label><i class="ri-pencil-line"></i></label>
+                                                    </div>
+                                                    <div class="thumb-preview cr-preview">
+                                                        <div class="image-thumb-preview">
+                                                            <img class="image-thumb-preview cr-image-preview"
+                                                                src="../media/{{proupdate.photo2}}" alt="edit">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="thumb-upload">
+                                                    <div class="thumb-edit">
+                                                        <input type='file' id="thumbUpload03" name="photo3"
+                                                            class="cr-image-upload" accept=".png, .jpg, .jpeg"
+                                                            value="{{proupdate.photo3}}">
+                                                        <label><i class="ri-pencil-line"></i></label>
+                                                    </div>
+                                                    <div class="thumb-preview cr-preview">
+                                                        <div class="image-thumb-preview">
+                                                            <img class="image-thumb-preview cr-image-preview"
+                                                                src="../media/{{proupdate.photo3}}" alt="edit">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="cr-vendor-upload-detail">
+                                        <form class="row g-3">
+                                            <div class="col-md-6">
+                                                <label for="inputEmail4" class="form-label">Product name</label>
+                                                <input type="text" class="form-control slug-title" id="inputEmail4"
+                                                    name="name" value="{{proupdate.name}}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Select Categories</label>
+                                                <select class="form-control form-select" name="productCat" id="mainCategory">
+                                                    <option value="{{proupdate.productCat}}" selected>{{proupdate.productCat}}</option>
+                                                    {% for var in table %}
+                                                    <optgroup label="{{ var.name }}">
+                                                        {% for vars in subtable %}
+                                                        {% if vars.category == var.name %}
+                                                        <option value="{{ vars.name }}">{{ vars.name }}</option>
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                    </optgroup>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <!-- <div class="col-md-12">
+                                                <label for="slug" class="col-12 col-form-label">Slug</label>
+                                                <div class="col-12">
+                                                    <input id="slug" name="slug" class="form-control here set-slug"
+                                                        type="text" name="slug" value="{{proupdate.slug}}">
+                                                </div>
+                                            </div> -->
+                                            <div class="col-md-12">
+                                                <label class="form-label">Sort Description</label>
+                                                <textarea class="form-control" rows="2"
+                                                    name="sortdescription">{{proupdate.sortdescription}}</textarea>
+                                            </div>
+                                            <div class="col-md-4 mb-25">
+                                                <label class="form-label color-label">Packaging Type</label>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="checkbox" name="packtype" value="Usable Package" {% if proupdate.packtype == 'Usable Package' %} checked {% endif %}>
+                                                    <label>Usable Package</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="checkbox" name="packtype" value="Cane" {% if proupdate.packtype == 'Cane' %} checked {% endif %}>
+                                                    <label>Cane</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="checkbox" name="packtype" value="Plastic Container" {% if proupdate.packtype == 'Plastic Container' %} checked {% endif %}>
+                                                    <label>Plastic Container</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="checkbox" name="packtype" value="Small Pack" {% if proupdate.packtype == 'Small Pack' %} checked {% endif %}>
+                                                    <label>Small Pack</label>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-8 mb-25">
+                                                <label class="form-label">Size</label>
+                                                <div class="form-checkbox-box">
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="checkbox" name="size" value="100" {% if proupdate.size == 100 %} checked {% endif %}>
+                                                        <label>100 ML</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="checkbox" name="size" value="200" {% if proupdate.size == 200 %} checked {% endif %}>
+                                                        <label>200 ML</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="checkbox" name="size" value="500" {% if proupdate.size == 500 %} checked {% endif %}>
+                                                        <label>500 ML</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="checkbox" name="size" value="1000" {% if proupdate.size == 1000 %} checked {% endif %}>
+                                                        <label>1000 ML</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-6">
+                                                <label class="form-label">Price <span>( In USD)</span></label>
+                                                <input type="number" class="form-control" name="price"
+                                                    value="{{proupdate.price}}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Quantity</label>
+                                                <input type="number" class="form-control" name="quantity"
+                                                    value="{{proupdate.quantity}}">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="form-label">Ful Detail</label>
+                                                <textarea class="form-control" rows="4"
+                                                    name="fulldescription">{{proupdate.fulldescription}}</textarea>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="form-label">Product Tags <span>( Type and
+                                                        make comma to separate tags )</span></label>
+                                                <input type="text" class="form-control" name="group_tag"
+                                                    data-role="tagsinput" value="{{proupdate.group_tag}}">
+                                            </div>
+                                    </div>
+                                    <div class="row mt-5">
+                                        <div class="col-6 d-flex justify-content-center">
+                                            <a href="../productlist/" class="cr-btn-primary">Back</a>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-center">
+                                            <input type="submit" class="cr-btn-primary" value="Submit">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}

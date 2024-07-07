@@ -1,0 +1,28 @@
+.catogery:hover{
+    background-color: #4fc8a0 !important;
+    color: white !important;
+}
+.logo1{
+    width: 50px !important;
+}
+.form-cat:hover{
+    color: #4fc8a0 !important;
+    cursor: pointer;
+}
+.regLogo{
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+.imageMain{
+    width: 100%;
+    height: 500px !important;
+}
+.shopImages{
+    width: 100%;
+    height: 200px !important;
+}
+.PopularImg{
+    width: 100px;
+    height: 200px !important;
+}

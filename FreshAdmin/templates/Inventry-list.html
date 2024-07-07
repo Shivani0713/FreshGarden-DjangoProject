@@ -1,0 +1,83 @@
+{% extends 'bases.html' %}
+{% block content %}
+		<!-- main content -->
+		<div class="cr-main-content">
+			<div class="container-fluid">
+				<!-- Page title & breadcrumb -->
+				<div class="cr-page-title cr-page-title-2">
+					<div class="cr-breadcrumb">
+						<h5>Inventry List</h5>
+						<ul>
+							<li><a href="../freshAdmin/indexAdmin">Fresh Garden</a></li>
+							<li>Inventry List</li>
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="cr-card card-default product-list">
+							<div class="cr-card-content ">
+								<div class="table-responsive">
+									<table id="product_list" class="table text-center" style="width:100%">
+										<thead>
+											<tr>
+												<th>Product</th>
+												<th>Name</th>
+												<th>Price</th>
+												<th>Offer</th>
+												<th>Purchased</th>
+												<th>Stock</th>
+												<th>Status</th>
+												<th>Date</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											
+											{% for vars in inventry%}
+											<tr>
+												<td><img class="tbl-thumb" src="../media/{{vars.photoM}}"
+														alt="Product Image"></td>
+												<td>{{vars.name}}</td>
+												{% for var in product %}
+													{% if var.name == vars.name %}
+														<td>{{ var.price }}</td>
+													{% endif %}
+												{% endfor %}
+												<td>{{vars.offer}}% OFF</td>
+												<td>{{vars.purchase}}</td>
+												<td>{{vars.stock}}</td>
+												<td><span class="active">{{vars.status}}</span></td>
+												<td>{{vars.date}}</td>
+												<td>
+													<div class="d-flex justify-content-center">
+														<button type="button"
+														class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+														data-bs-toggle="dropdown" aria-haspopup="true"
+														aria-expanded="false" data-display="static">
+														<span class="sr-only"><i
+															class="ri-settings-3-line"></i></span>
+														</button>
+														<div class="dropdown-menu">
+															<a class="dropdown-item" href="../UpInventry/{{vars.id}}">Inventry Edit</a>
+															{% for var in product %}
+																{% if var.id == vars.id %}
+																	<a class="dropdown-item" href="../UpProduct/{{var.id}}">Product Edit</a>
+																{% endif %}
+															{%endfor%}
+															<a class="dropdown-item" href="../delInventry/{{vars.id}}">Delete</a>
+														</div>
+													</div>
+												</td>
+											</tr>
+											{%endfor%}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+{%endblock%}

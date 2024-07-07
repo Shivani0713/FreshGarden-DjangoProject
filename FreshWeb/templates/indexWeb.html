@@ -1,0 +1,467 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Hero slider -->
+<section class="section-hero padding-b-100 next">
+    <div class="cr-slider swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="cr-hero-banner cr-banner-image-two">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="cr-left-side-contain slider-animation">
+                                    <h5><span>100%</span> Organic Fruits</h5>
+                                    <h1>Explore fresh & juicy fruits.</h1>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet reiciendis
+                                        beatae consequuntur.</p>
+                                    <div class="cr-last-buttons">
+                                        <a href="/freshWeb/shop" class="cr-button">
+                                            shop now
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="cr-hero-banner cr-banner-image-one">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="cr-left-side-contain slider-animation">
+                                    <h5><span>100%</span> Organic Vegetables</h5>
+                                    <h1>The best way to stuff your wallet.</h1>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet reiciendis
+                                        beatae consequuntur.</p>
+                                    <div class="cr-last-buttons">
+                                        <a href="../freshWeb/shop" class="cr-button">
+                                            shop now
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</section>
+<!-- Popular product -->
+<section class="section-popular-product-shape padding-b-100">
+    <div class="container" data-aos="fade-up" data-aos-duration="2000">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="mb-30">
+                    <div class="cr-banner">
+                        <h2>Popular Products</h2>
+                    </div>
+                    <div class="cr-banner-sub-title">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            ut labore lacus vel facilisis. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="product-content row mb-minus-24" id="MixItUpDA2FB7">
+            <div class="col-xl-3 col-lg-4 col-12 mb-24">
+                <div class="row mb-minus-24 sticky">
+                    <div class="col-lg-12 col-sm-6 col-6 cr-product-box mb-24">
+                        <div class="cr-product-tabs">
+                            <ul>
+                                <li class="active" data-filter="all">All</li>
+                                {%for var in categories%}
+                                <li data-filter=".{{var.name}}">{{var.name}}</li>
+                                {%endfor%}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-8 col-12 mb-24">
+                <div class="row mb-minus-24">
+                    {%for vars in categories%}
+                        {%for sub in subCat %}
+                            {% if sub.category == vars.name%}
+                                {%for var in product %}
+                                    {%if var.productCat == sub.name%}
+                                        <div class="mix {{vars.name}} col-xxl-3 col-xl-4 col-6 cr-product-box mb-24">
+                                            <div class="cr-product-card">
+                                                <div class="cr-product-image">
+                                                    <div class="cr-image-inner zoom-image-hover">
+                                                        <img src="./media/{{var.photoM}}" alt="product-1">
+                                                    </div>
+                                                    <!-- {% if request.session.username %}
+                                                        <div class="cr-side-view">
+                                                            <a href="/freshWeb/wishlist/{{var.id}}/{{email}}" class="wishlist">
+                                                                <i class="ri-heart-line"></i>
+                                                            </a>
+                                                        </div>
+                                                        <a class="cr-shopping-bag" href="/freshWeb/cart/{{var.id}}/{{email}}">
+                                                            <i class="ri-shopping-bag-line"></i>
+                                                        </a>
+                                                    {%else%}
+                                                        <div class="cr-side-view">
+                                                            <a href="/freshWeb/login" class="wishlist">
+                                                                <i class="ri-heart-line"></i>
+                                                            </a>
+                                                        </div>
+                                                        <a class="cr-shopping-bag" href="/freshWeb/login">
+                                                            <i class="ri-shopping-bag-line"></i>
+                                                        </a>
+                                                    {%endif%} -->
+                                                </div>
+                                                <div class="cr-product-details">
+                                                    <div class="cr-brand">
+                                                        <a href="../freshWeb/shop">{{var.name}}</a>
+                                                        <div class="cr-star">
+                                                            <i class="ri-star-fill"></i>
+                                                            <i class="ri-star-fill"></i>
+                                                            <i class="ri-star-fill"></i>
+                                                            <i class="ri-star-fill"></i>
+                                                            <i class="ri-star-line"></i>
+                                                            <p>(4.5)</p>
+                                                        </div>
+                                                    </div>
+                                                    <a href="../freshWeb/shop" class="title">Fresh organic villa farm {{vars.name}}
+                                                        {{vars.size}}ML {{vars.packtype}}</a>
+                                                    <p class="cr-price"><span class="new-price">Rs{{var.price}}</span> <span
+                                                            class="old-price">$123.25</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    {%endif%}
+                                {%endfor%}
+                            {%endif%}
+                        {%endfor%}
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Product banner -->
+<section class="section-product-banner padding-b-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="cr-banner-slider swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" data-aos="fade-up" data-aos-duration="2000">
+                            <div class="cr-product-banner-image">
+                                <img src="/static/assets/img/product-banner/1.jpg" alt="product-banner">
+                                <div class="cr-product-banner-contain">
+                                    <h5>Healthy <br> Bakery Products</h5>
+                                    <p><span class="percent">30%</span> Off <span class="text">on first order</span>
+                                    </p>
+                                    <div class="cr-product-banner-buttons">
+                                        <a href="../freshWeb/shop" class="cr-button">shop now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-aos="fade-up" data-aos-duration="2000">
+                            <div class="cr-product-banner-image">
+                                <img src="/static/assets/img/product-banner/2.jpg" alt="product-banner">
+                                <div class="cr-product-banner-contain">
+                                    <h5>Fresh <br>Snacks & Sweets</h5>
+                                    <p><span class="percent">20%</span> Off <span class="text">on first order</span>
+                                    </p>
+                                    <div class="cr-product-banner-buttons">
+                                        <a href="../freshWeb/shop" class="cr-button">shop now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-aos="fade-up" data-aos-duration="2000">
+                            <div class="cr-product-banner-image">
+                                <img src="/static/assets/img/product-banner/3.jpg" alt="product-banner">
+                                <div class="cr-product-banner-contain">
+                                    <h5>Fresh & healthy <br> Organic Fruits</h5>
+                                    <p><span class="percent">35%</span> Off <span class="text">on first order</span>
+                                    </p>
+                                    <div class="cr-product-banner-buttons">
+                                        <a href="../freshWeb/shop" class="cr-button">shop now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services -->
+<section class="section-services padding-b-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="cr-services-border" data-aos="fade-up" data-aos-duration="2000">
+                    <div class="cr-service-slider swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="cr-services">
+                                    <div class="cr-services-image">
+                                        <i class="ri-red-packet-line"></i>
+                                    </div>
+                                    <div class="cr-services-contain">
+                                        <h4>Product Packing</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="cr-services">
+                                    <div class="cr-services-image">
+                                        <i class="ri-customer-service-2-line"></i>
+                                    </div>
+                                    <div class="cr-services-contain">
+                                        <h4>24X7 Support</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="cr-services">
+                                    <div class="cr-services-image">
+                                        <i class="ri-truck-line"></i>
+                                    </div>
+                                    <div class="cr-services-contain">
+                                        <h4>Delivery in 5 Days</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="cr-services">
+                                    <div class="cr-services-image">
+                                        <i class="ri-money-dollar-box-line"></i>
+                                    </div>
+                                    <div class="cr-services-contain">
+                                        <h4>Payment Secure</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Deal -->
+<section class="section-deal padding-b-100">
+    <div class="bg-banner-deal">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="cr-deal-rightside">
+                        <div class="cr-deal-content" data-aos="fade-up" data-aos-duration="2000">
+                            <span><code>35%</code> OFF</span>
+                            <h4 class="cr-deal-title">Great deal on organic food.</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do maecenas accumsan
+                                lacus
+                                vel facilisis. </p>
+                            <div id="timer" class="cr-counter">
+                                <div class="cr-counter-inner">
+                                    <h4>
+                                        <span id="days"></span>
+                                        Days
+                                    </h4>
+                                    <h4>
+                                        <span id="hours"></span>
+                                        Hrs
+                                    </h4>
+                                    <h4>
+                                        <span id="minutes"></span>
+                                        Min
+                                    </h4>
+                                    <h4>
+                                        <span id="seconds"></span>
+                                        Sec
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Popular product -->
+<section class="section-popular margin-b-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-7 col-xl-6 col-lg-6 col-md-12" data-aos="fade-up" data-aos-duration="2000">
+                <div class="cr-twocolumns-product">
+                    {%for var in popular%}
+                    <div class="slick-slide">
+                        <div class="cr-product-card">
+                            <div class="cr-product-image">
+                                <div class="cr-image-inner zoom-image-hover">
+                                    <img src="./media/{{var.photoM}}" alt="product-1" class="PopularImg">
+                                </div>
+                                <div class="cr-side-view">
+                                    <a href="javascript:void(0)" class="wishlist">
+                                        <i class="ri-heart-line"></i>
+                                    </a>
+                                    <a class="model-oraganic-product" data-bs-toggle="modal" href="#quickview"
+                                        role="button">
+                                        <i class="ri-eye-line"></i>
+                                    </a>
+                                </div>
+                                <a class="cr-shopping-bag" href="javascript:void(0)">
+                                    <i class="ri-shopping-bag-line"></i>
+                                </a>
+                            </div>
+                            <div class="cr-product-details">
+                                <div class="cr-brand">
+                                    <a href="../freshWeb/shop">{{var.name}}</a>
+                                    <div class="cr-star">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-line"></i>
+                                        <p>(4.5)</p>
+                                    </div>
+                                </div>
+                                <a href="product-left-sidebar.html" class="title">{{var.name}}<br>{{var.packtype}}</a>
+                                <p class="cr-price"><span class="new-price">Rs {{var.price}}</span> <span
+                                        class="old-price">$123.25</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+            <div class="col-xxl-5 col-xl-6 col-lg-6 col-md-12" data-aos="fade-up" data-aos-duration="2000">
+                <div class="cr-products-rightbar">
+                    <img src="/static/assets/img/product/products-rightview.jpg" alt="products-rightview">
+                    <div class="cr-products-rightbar-content">
+                        <h4>Organic & Healthy <br> Vegetables</h4>
+                        <div class="cr-off">
+                            <span>25% <code>OFF</code></span>
+                        </div>
+                        <div class="rightbar-buttons">
+                            <a href="../freshWeb/shop" class="cr-button">
+                                shop now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog -->
+<section class="section-blog padding-b-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="mb-30" data-aos="fade-up" data-aos-duration="2000">
+                    <div class="cr-banner">
+                        <h2>Latest News</h2>
+                    </div>
+                    <div class="cr-banner-sub-title">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            ut labore lacus vel facilisis. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="cr-blog-slider swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" data-aos="fade-up" data-aos-duration="2000">
+                            <div class="cr-blog">
+                                <div class="cr-blog-content">
+                                    <span><code>By Admin</code> | <a href="blog-left-sidebar.html">Snacks</a></span>
+                                    <h5>Urna pretium elit mauris cursus at elit Vestibulum.</h5>
+                                    <a class="read" href="blog-detail-left-sidebar.html">Read More</a>
+                                </div>
+                                <div class="cr-blog-image">
+                                    <img src="/static/assets/img/blog/2.jpg" alt="blog-2">
+                                    <div class="cr-blog-date">
+                                        <span>
+                                            10
+                                            <code>oct</code>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-aos="fade-up" data-aos-duration="2000">
+                            <div class="cr-blog">
+                                <div class="cr-blog-content">
+                                    <span><code>By Admin</code> | <a href="blog-left-sidebar.html">Food</a></span>
+                                    <h5>Best guide to Shopping for organic ingredients.</h5>
+                                    <a class="read" href="blog-detail-left-sidebar.html">Read More</a>
+                                </div>
+                                <div class="cr-blog-image">
+                                    <img src="/static/assets/img/blog/1.jpg" alt="blog-1">
+                                    <div class="cr-blog-date">
+                                        <span>
+                                            09<code>sep</code>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-aos="fade-up" data-aos-duration="2000">
+                            <div class="cr-blog">
+                                <div class="cr-blog-content">
+                                    <span><code>By Admin</code> | <a href="blog-left-sidebar.html">Snacks</a></span>
+                                    <h5>Cursus at elit vestibulum urna pretium elit mauris.</h5>
+                                    <a class="read" href="blog-detail-left-sidebar.html">Read More</a>
+                                </div>
+                                <div class="cr-blog-image">
+                                    <img src="/static/assets/img/blog/3.jpg" alt="blog-2">
+                                    <div class="cr-blog-date">
+                                        <span>
+                                            12
+                                            <code>oct</code>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" data-aos="fade-up" data-aos-duration="2000">
+                            <div class="cr-blog">
+                                <div class="cr-blog-content">
+                                    <span><code>By Admin</code> | <a href="blog-left-sidebar.html">Vegetable</a></span>
+                                    <h5>Condimentum Nam enim bestMorbi odio sodales.</h5>
+                                    <a class="read" href="blog-detail-left-sidebar.html">Read More</a>
+                                </div>
+                                <div class="cr-blog-image">
+                                    <img src="/static/assets/img/blog/2.jpg" alt="blog-3">
+                                    <div class="cr-blog-date">
+                                        <span>
+                                            22
+                                            <code>jan</code>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{%endblock%}

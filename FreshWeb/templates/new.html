@@ -1,0 +1,121 @@
+{% url 'next_page' id=proShow.id email=email %}
+<!-- <div class="cr-add-button">
+    <a href="{% url 'cart1_with_id_and_email' proShow.id email %}" class="cr-button cr-shopping-bag">Add to cart</a>
+</div> -->
+ <!-- <a href="{% url 'cart1_with_id_and_email' id=proShow.id email='shivani' %}" class="cr-button cr-shopping-bag">Add to cart</a> -->
+ return redirect('/freshWeb/cart1/?id={}&email={}'.format(id, email))def cartShows(request, id, email):
+ if id is not None and email is not None:  # Check both id and email
+     try:
+         # Check if the product with the given id already exists in the cart
+         if NewCart.objects.filter(productId=id, username=email).exists():
+            return render(request, 'cart.html', {'id': id, 'email': email})
+
+         # If the product doesn't exist in the cart, proceed to add it
+         queryset = Products.objects.get(id=id)
+         productid = queryset.id
+         productname = queryset.name
+         productimage = queryset.photoM
+         productprice = queryset.price
+
+         NewCart.objects.create(
+             productId=productid,
+             productName=productname,
+             productImg=productimage,
+             productValue=productprice,
+             username=email
+         )
+     except Products.DoesNotExist:
+         raise Http404("Product does not exist")
+
+     # Redirect to the same view without parameters to remove them from the URL
+     return HttpResponseRedirect('/freshWeb/cart1/')
+ elif id is not None and email is None:
+     return redirect('/freshWeb/login/')
+ else:
+     if request.method == 'POST':
+         all_products = request.POST.getlist('product_name')
+         all_prices = request.POST.getlist('product_price')
+         all_quantities = request.POST.getlist('quant')
+         all_subtotals = request.POST.getlist('subtotal')
+         email = request.POST.get('email')
+
+         for product_name, product_price, quantity, subtotal in zip(all_products, all_prices, all_quantities, all_subtotals):
+             NewCart.objects.create(
+                 product_name=product_name,
+                 product_price=product_price,
+                 quantity=quantity,
+                 subtotal=subtotal,
+                 email=email
+             )
+         checkout_url = reverse('checkout', kwargs={'email': email})
+         return HttpResponseRedirect(checkout_url)
+ all_products = NewCart.objects.all()
+ context={'all_product': all_products}
+ return render(request, 'cart.html',context)
+
+
+ if id is not None and email is not None:  # Check both id and email
+        try:
+            # Check if the product with the given id already exists in the cart
+            if NewCart.objects.filter(productId=id, username=email).exists():
+                return render(request, 'cart.html', {'id': id, 'email': email})
+
+            # If the product doesn't exist in the cart, proceed to add it
+            queryset = Products.objects.get(id=id)
+            productid = queryset.id
+            productname = queryset.name
+            productimage = queryset.photoM
+            productprice = queryset.price
+
+            NewCart.objects.create(
+                productId=productid,
+                productName=productname,
+                productImg=productimage,
+                productValue=productprice,
+                username=email
+            )
+        except Products.DoesNotExist:
+            raise Http404("Product does not exist")
+            # Redirect to the same view without parameters to remove them from the URL
+            return HttpResponseRedirect('/freshWeb/cart1/')
+        elif id is not None and email is None:
+            return redirect('/freshWeb/login/')
+
+            else:
+            if request.method == 'POST':
+                all_products = request.POST.getlist('product_name')
+                all_prices = request.POST.getlist('product_price')
+                all_quantities = request.POST.getlist('quant')
+                all_subtotals = request.POST.getlist('subtotal')
+                email = request.POST.get('email')
+
+                <tbody>
+                    {% for product in all_product %}
+                    <tr>
+                        <td>{{product.productName}}</td>
+                        <td class="cr-cart-name">
+                            <a href="javascript:void(0)">
+                                <img src="../media/{{product.productImg}}" alt="product-1"
+                                    class="cr-cart-img">   
+                            </a>
+                        </td>
+                        <td class="cr-cart-price">
+                            <span class="amount">Rs {{product.productValue}}</span>
+                        </td>
+                        <td class="cr-cart-qty">
+                            <div class="cart-qty-plus-minus">
+                                <button type="button" class="minus">-</button>
+                                <input type="text" placeholder="." value="1" minlength="1"
+                                    maxlength="20" class="quantity">
+                                <button type="button" class="plus">+</button>
+                            </div>
+                        </td>
+                        <td class="cr-cart-subtotal">$56.00</td>
+                        <td class="cr-cart-remove">
+                            <a href="javascript:void(0)">
+                                <i class="ri-delete-bin-line"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>

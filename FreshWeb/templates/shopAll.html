@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- Breadcrumb -->
+    <section class="section-breadcrumb">
+        <div class="cr-breadcrumb-image">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="cr-breadcrumb-title">
+                            <h2>Shop</h2>
+                            <span> <a href="/freshWeb/indexWeb">Home</a> - Shop</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop -->
+    <section class="section-shop padding-tb-100">
+        <div class="container">
+            <div class="row d-none">
+                <div class="col-lg-12">
+                    <div class="mb-30" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="400">
+                        <div class="cr-banner">
+                            <h2>Categories</h2>
+                        </div>
+                        <div class="cr-banner-sub-title">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore lacus vel facilisis. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9 col-12 md-30" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="600">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="cr-shop-bredekamp">
+                                <div class="cr-toggle">
+                                    <a href="javascript:void(0)" class="gridCol active-grid">
+                                        <i class="ri-grid-line"></i>
+                                    </a>
+                                    <a href="javascript:void(0)" class="gridRow">
+                                        <i class="ri-list-check-2"></i>
+                                    </a>
+                                </div>
+                                <div class="center-content">
+                                    <span>We found {{count}} items for you!</span>
+                                </div>
+                                <div class="cr-select">
+                                    <label>Sort By :</label>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>Featured</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                        <option value="4">Four</option>
+                                        <option value="5">Five</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-100 mb-minus-24">
+                        {% for item in page_obj %}
+                            {%for vars in categories%}
+                                {%for sub in subCat %}
+                                    {% if sub.category == vars.name%}
+                                        {%for var in product %}
+                                            {%if var.productCat == sub.name%}
+                                                {%if var.name == var.name and var == item%}
+                                                    <div class="{{vars.name}} col-xxl-3 col-xl-4 col-6 cr-product-box mb-24">
+                                                        <div class="cr-product-card">
+                                                            <div class="cr-product-image">
+                                                                <div class="cr-image-inner zoom-image-hover">
+                                                                    <img src="../media/{{var.photoM}}" alt="product-1">
+                                                                </div>
+                                                                <div class="cr-side-view">
+                                                                    {% if request.session.username %}
+                                                                        <a href="/freshWeb/wishlist/{{var.id}}/{{email}}" class="wishlist">
+                                                                            <i class="ri-heart-line"></i>
+                                                                        </a>
+                                                                    {%else%}
+                                                                        <a class="wishlist" href="/freshWeb/login">
+                                                                            <i class="ri-heart-line"></i>
+                                                                        </a>
+                                                                    {%endif%}
+                                                                </div>
+                                                                {% if request.session.username %}
+                                                                    <a class="cr-shopping-bag" href="/freshWeb/cart/{{var.id}}/{{email}}">
+                                                                        <i class="ri-shopping-bag-line"></i>
+                                                                    </a>
+                                                                {%else%}
+                                                                    <a class="cr-shopping-bag" href="/freshWeb/cart/login">
+                                                                        <i class="ri-shopping-bag-line"></i>
+                                                                    </a>
+                                                                {%endif%}
+                                                            </div>
+                                                            <div class="cr-product-details">
+                                                                <div class="cr-brand">
+                                                                    <a href="/freshWeb/product/{{var.id}}">{{var.name}}</a>
+                                                                    <div class="cr-star">
+                                                                        <i class="ri-star-fill"></i>
+                                                                        <i class="ri-star-fill"></i>
+                                                                        <i class="ri-star-fill"></i>
+                                                                        <i class="ri-star-fill"></i>
+                                                                        <i class="ri-star-line"></i>
+                                                                        <p>(4.5)</p>
+                                                                    </div>
+                                                                </div>
+                                                                <a href="/freshWeb/product/{{var.id}}" class="title">Fresh organic villa farm {{vars.name}}
+                                                                    {{vars.size}}ML {{vars.packtype}}</a>
+                                                                <p class="cr-price"><span class="new-price">Rs{{var.price}}</span> <span
+                                                                        class="old-price">$123.25</span></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {%endif%}
+                                            {%endif%}
+                                        {%endfor%}
+                                    {%endif%}
+                                {%endfor%}
+                            {%endfor%}
+                        {%endfor%}
+                    </div>
+                    <nav aria-label="..." class="cr-pagination">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                {% if page_obj.has_previous %}
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                                {% endif %}
+                            </li>
+                            {% for num in page_obj.paginator.page_range %}
+                                 {% if page_obj.number == num %}
+                                    <li class="page-item active" aria-current="page">
+                                        <span class="page-link">{{ num }}</span>
+                                    </li>
+                                    {% else %}
+                                    <li class="page-item" aria-current="page"></li>
+                                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                            <li class="page-item">
+                                {% if page_obj.has_next %}
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-12 md-30" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="400">
+                    <div class="cr-shop-sideview">
+                        <div class="cr-shop-categories">
+                            <h4 class="cr-shop-sub-title">Category</h4>
+                            <div class="cr-checkbox">
+                                {%for var in categories%}
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="{{var.name}}">
+                                        <label for="{{var.name}}">{{var.name}}</label>
+                                        <span>{% for category_name, count in category_counts.items %}
+                                            {% if category_name == var.name %}
+                                                {{ count }}
+                                            {% endif %}
+                                        {% endfor %}</span>
+                                    </div>
+                                {%endfor%}
+                            </div>
+                        </div>
+                        <div class="cr-shop-price">
+                            <h4 class="cr-shop-sub-title">Price</h4>
+                            <div class="price-range-slider">
+                                <div id="slider-range" class="range-bar"></div>
+                                <p class="range-value">
+                                    <label>Price :</label>
+                                    <input type="text" id="amount" placeholder="'" readonly>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- <div class="cr-shop-weight">
+                            <h4 class="cr-shop-sub-title">Weight</h4>
+                            <div class="cr-checkbox">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="2kg">
+                                    <label for="2kg">2kg Pack</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="20kg">
+                                    <label for="20kg">20kg Pack</label>
+                                </div>
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="30kg">
+                                    <label for="30kg">30kg pack</label>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="cr-shop-tags">
+                            <h4 class="cr-shop-sub-title">Tages</h4>
+                            <div class="cr-shop-tags-inner">
+                                <ul class="cr-tags">
+                                    {%for var in categories%}
+                                        <li><a href="javascript:void(0);">{{var.name }}</a></li>
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Add this script to your HTML -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the checkbox elements
+        var checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+
+        // Add event listener to each checkbox
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                // Create an array to store the selected categories
+                var selectedCategories = [];
+                
+                // Loop through checkboxes to find the checked ones
+                checkboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        // Push the id of checked checkboxes to the selectedCategories array
+                        selectedCategories.push(checkbox.id);
+                    }
+                });
+
+                // Hide all products
+                var products = document.querySelectorAll('.cr-product-box');
+                products.forEach(function(product) {
+                    product.style.display = 'none';
+                });
+
+                // Show products that match the selected categories
+                selectedCategories.forEach(function(category) {
+                    var productsToShow = document.querySelectorAll('.cr-product-box.' + category);
+                    productsToShow.forEach(function(product) {
+                        product.style.display = 'block';
+                    });
+                });
+            });
+        });
+
+        // Initialize the price range slider using jQuery UI
+    $(function() {
+    // Initialize the slider
+    $("#slider-range").slider({
+        range: true,
+        min: 0,
+        max: 1000,
+        values: [0, 2000],
+        slide: function(event, ui) {
+            filterItems(ui.values[0], ui.values[1]); // Call the function to filter items
+        }
+    });
+
+    // Initial item filtering
+    filterItems($("#slider-range").slider("values", 0), $("#slider-range").slider("values", 1));
+
+    // Function to filter items based on price range
+    function filterItems(minValue, maxValue) {
+        $('.cr-product-box').each(function() {
+            var itemPrice = parseFloat($(this).find('.new-price').text().replace('Rs', ''));
+            if (itemPrice >= minValue && itemPrice <= maxValue) {
+                $(this).show(); // Show the item if it falls within the price range
+            } else {
+                $(this).hide(); // Hide the item if it falls outside the price range
+            }
+        });
+    }
+});
+
+    });
+
+</script>
+
+
+
+{%endblock%}

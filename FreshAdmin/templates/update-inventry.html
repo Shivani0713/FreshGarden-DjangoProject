@@ -1,0 +1,97 @@
+{% extends 'bases.html' %}
+{% block content %}
+		<!-- main content -->
+		<div class="cr-main-content">
+			<div class="container-fluid">
+				<!-- Page title & breadcrumb -->
+				<div class="cr-page-title cr-page-title-2">
+					<div class="cr-breadcrumb">
+						<h5>Update Inventry</h5>
+						<ul>
+							<li><a href="../freshAdmin/indexAdmin">Fresh Garden</a></li>
+							<li>Update Inventry</li>
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+					<form method="post"  enctype="multipart/form-data">
+						{% csrf_token %} 
+						<div class="col-md-12">
+							<div class="cr-card card-default">
+								<div class="cr-card-content">
+									<div class="row cr-product-uploads">
+										<div class="col-lg-4 mb-991">
+											<div class="cr-vendor-img-upload">
+												<div class="cr-vendor-main-img">
+													<div class="avatar-upload">
+														<div class="avatar-edit">
+															<input type='file' id="product_main" class="cr-image-upload"
+																accept=".png, .jpg, .jpeg" name="photoM" value="../media/{{invupdate.photoM}}">
+															<label><i class="ri-pencil-line"></i></label>
+														</div>
+														<div class="avatar-preview cr-preview">
+															<div class="imagePreview cr-div-preview">
+																<img class="cr-image-preview"
+																	src="../media/{{invupdate.photoM}}"
+																	alt="edit">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-8">
+											<div class="cr-vendor-upload-detail">
+												<form class="row g-3">
+													<div class="col-md-6">
+														<label for="name" class="form-label">Product name</label>
+														<input type="text" class="form-control slug-title" id="inputEmail4" name="name" value="{{invupdate.name}}">
+													</div>
+													<div class="col-md-6">
+														<label class="form-label" for="offer">Offer</label>
+														<div class="col-12">
+															<input name="offer" class="form-control" type="text" value="{{invupdate.offer}}">
+														</div>
+													</div>
+													<div class="col-md-6">
+														<label for="purchase" class="col-12 col-form-label">Purchased</label> 
+														<div class="col-12">
+															<input name="purchase" class="form-control" type="text" value="{{invupdate.purchase}}">
+														</div>
+													</div>
+													<div class="col-md-6">
+														<label class="col-12 col-form-label" for="stock">Stock</label>
+														<input name="stock" class="form-control here set-slug" type="text" value="{{invupdate.stock}}">
+													</div>
+													<div class="col-md-6 mb-25">
+														<label class="form-label">Status</label>
+														<div class="col-12">
+															<select class="form-control form-select" name="status">
+																<option value="{{invupdate.status}}" selected>{{invupdate.status}}</option>
+																<option value="active">Active</option>
+																<option value="active">Inactive</option>
+															</select>
+														</div>
+													</div>
+													<div class="col-md-6 mb-25">
+														<label class="form-label" for="date">Date</label>
+														<!-- <input name="date" class="form-control here set-slug" type="date" value="{{invupdate.date}}"> -->
+														<input name="date" class="form-control here set-slug" type="date" value="{{invupdate.date|date:'Y-m-d'}}">
+
+													</div>
+													<div class="col-md-12 mt-5">
+														<input type="submit" class="btn cr-btn-primary" value="submit">
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+{%endblock%}

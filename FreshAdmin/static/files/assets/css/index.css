@@ -1,0 +1,10 @@
+.adminLogo{
+    width: 50px !important;
+    height: 50px !important;
+    object-fit: contain;
+}
+.adminLogos{
+    width: 200px !important;
+    height: 50px !important;
+    object-fit: contain;
+}
